@@ -39,7 +39,7 @@ export default function ManageProductsPage() {
 
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
             {/* Add Product Form */}
-            <div className="lg:col-span-1">
+            <div className="lg:col-span-1 sticky top-20 self-start">
               <ProductForm onSubmit={addProduct} />
             </div>
 

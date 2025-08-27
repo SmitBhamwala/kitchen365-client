@@ -57,7 +57,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       toast.success("Login successful!");
     } catch (error: any) {
       const message = error.response?.data?.message || "Login failed";
-      toast.error(message);
       throw new Error(message);
     }
   };
@@ -82,7 +81,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       toast.success("Account created successfully!");
     } catch (error: any) {
       const message = error.response?.data?.message || "Signup failed";
-      toast.error(message);
       throw new Error(message);
     }
   };
