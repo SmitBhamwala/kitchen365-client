@@ -78,7 +78,7 @@ export default function ProductForm({ onSubmit }: ProductFormProps) {
             className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ${
               errors.name ? "border-red-500" : "border-gray-300"
             }`}
-            placeholder="Enter product name"
+            placeholder="Enter name"
           />
           {errors.name && (
             <p className="text-red-500 text-sm mt-1">{errors.name}</p>
@@ -126,7 +126,7 @@ export default function ProductForm({ onSubmit }: ProductFormProps) {
               setFormData((prev) => ({ ...prev, description: e.target.value }))
             }
             className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-            placeholder="Enter product description (optional)"
+            placeholder="Enter description (optional)"
             rows={3}
           />
         </div>
@@ -134,7 +134,7 @@ export default function ProductForm({ onSubmit }: ProductFormProps) {
         <button
           type="submit"
           disabled={submitting}
-          className="w-full bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 disabled:opacity-50 disabled:cursor-not-allowed transition-colors">
+          className="w-full bg-blue-500 text-white py-2 px-4 cursor-pointer rounded-md hover:bg-blue-600 disabled:opacity-50 disabled:cursor-not-allowed transition-colors">
           {submitting ? "Adding Product..." : "Add Product"}
         </button>
       </form>
