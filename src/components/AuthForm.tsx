@@ -35,7 +35,7 @@ export default function AuthForm({ type, onSubmit }: AuthFormProps) {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e?: React.FormEvent) => {
     e.preventDefault();
 
     if (!validateForm()) return;
@@ -44,14 +44,20 @@ export default function AuthForm({ type, onSubmit }: AuthFormProps) {
       setSubmitting(true);
       await onSubmit(formData);
     } catch (error) {
-      // Error handled in auth context
+      const message =
+        error instanceof Error
+          ? error.message
+          : String(error || "An unexpected error occurred. Please try again.");
+      setErrors({
+        form: message
+      });
     } finally {
       setSubmitting(false);
     }
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+    <div className="flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-md w-full space-y-8">
         <div>
           <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
@@ -82,7 +88,7 @@ export default function AuthForm({ type, onSubmit }: AuthFormProps) {
           </p>
         </div>
 
-        <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
+        <form className="mt-8 space-y-6" onSubmit={(e) => handleSubmit(e)}>
           <div className="space-y-4">
             <div>
               <label
@@ -130,12 +136,17 @@ export default function AuthForm({ type, onSubmit }: AuthFormProps) {
               )}
             </div>
           </div>
+          {errors.form && (
+            <p className="text-red-500 text-sm mt-1 text-center">
+              {errors.form}
+            </p>
+          )}
 
           <div>
             <button
               type="submit"
               disabled={submitting}
-              className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed">
+              className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white cursor-pointer bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed">
               {submitting
                 ? `${
                     type === "login" ? "Signing in..." : "Creating account..."
