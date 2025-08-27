@@ -14,6 +14,9 @@ pnpm dev
 bun dev
 ```
 
+Frontend is deployed on [https://kitchen365-client.vercel.app](https://kitchen365-client.vercel.app).
+Make sure to start backend on localhost:8000 as backend is currently not deployed.
+
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
 ## Running the Application
