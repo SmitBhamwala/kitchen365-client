@@ -3,13 +3,16 @@ interface SearchFilterProps {
   onSearchChange: (term: string) => void;
 }
 
-export default function SearchFilter({ searchTerm, onSearchChange }: SearchFilterProps) {
+export default function SearchFilter({
+  searchTerm,
+  onSearchChange
+}: SearchFilterProps) {
   return (
     <div className="mb-6">
       <div className="relative">
         <input
           type="text"
-          placeholder="Search products by name or description..."
+          placeholder="Search products by name..."
           value={searchTerm}
           onChange={(e) => onSearchChange(e.target.value)}
           className="w-full px-4 py-2 pl-10 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -19,8 +22,7 @@ export default function SearchFilter({ searchTerm, onSearchChange }: SearchFilte
             className="h-5 w-5 text-gray-400"
             fill="none"
             stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
+            viewBox="0 0 24 24">
             <path
               strokeLinecap="round"
               strokeLinejoin="round"

@@ -52,7 +52,7 @@ npm run dev
 
 ✅ **Bonus Features:**
 
-- Search/filter functionality
+- Search functionality
 - Loading states
 - Toast notifications
 - Responsive design
