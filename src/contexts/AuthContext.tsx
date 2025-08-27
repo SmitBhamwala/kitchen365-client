@@ -2,6 +2,7 @@
 
 import { AuthResponse, LoginDto, SignupDto, User } from "@/types/auth";
 import { authApi } from "@/utils/api";
+import { AxiosError } from "axios";
 import Cookies from "js-cookie";
 import { createContext, useContext, useEffect, useState } from "react";
 import toast from "react-hot-toast";
@@ -28,8 +29,14 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     if (token && userData) {
       try {
         setUser(JSON.parse(userData));
-      } catch (error) {
+      } catch (error: unknown) {
         // Invalid user data, clear cookies
+        if (error instanceof Error) {
+          console.error(
+            "Failed to parse user data from cookies: ",
+            error.message
+          );
+        }
         Cookies.remove("token");
         Cookies.remove("user");
       }
@@ -55,8 +62,15 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
       setUser(response.user);
       toast.success("Login successful!");
-    } catch (error: any) {
-      const message = error.response?.data?.message || "Login failed";
+    } catch (error: unknown) {
+      let message = "Login failed";
+
+      if (error instanceof AxiosError && error.response?.data?.message) {
+        message = error.response.data.message;
+      } else if (error instanceof Error) {
+        message = error.message;
+      }
+
       throw new Error(message);
     }
   };
@@ -79,8 +93,15 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
       setUser(response.user);
       toast.success("Account created successfully!");
-    } catch (error: any) {
-      const message = error.response?.data?.message || "Signup failed";
+    } catch (error: unknown) {
+      let message = "Signup failed";
+
+      if (error instanceof AxiosError && error.response?.data?.message) {
+        message = error.response.data.message;
+      } else if (error instanceof Error) {
+        message = error.message;
+      }
+
       throw new Error(message);
     }
   };

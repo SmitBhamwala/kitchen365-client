@@ -57,7 +57,7 @@ export default function ProductCard({
         {showActions && onDelete && (
           <Dialog>
             <DialogTrigger>
-              <div className="px-3 py-1 text-sm bg-red-500 text-white rounded hover:bg-red-600 disabled:opacity-50 disabled:cursor-not-allowed transition-colors">
+              <div className="px-3 py-1 text-sm bg-red-500 cursor-pointer text-white rounded hover:bg-red-600 disabled:opacity-50 disabled:cursor-not-allowed transition-colors">
                 {deleting ? "Deleting..." : "Delete"}
               </div>
             </DialogTrigger>

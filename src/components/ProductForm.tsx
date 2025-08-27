@@ -1,5 +1,6 @@
 import { CreateProductDto, Product } from "@/types/product";
 import { useState } from "react";
+import toast from "react-hot-toast";
 
 interface ProductFormProps {
   onSubmit: (product: CreateProductDto) => Promise<Product>;
@@ -51,7 +52,7 @@ export default function ProductForm({ onSubmit }: ProductFormProps) {
       setFormData({ name: "", price: 0, description: "" });
       setErrors({});
     } catch (error) {
-      // Error handled in the hook
+      toast.error("Failed to add product: " + error);
     } finally {
       setSubmitting(false);
     }

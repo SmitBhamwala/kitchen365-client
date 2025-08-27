@@ -1,5 +1,6 @@
 import { CreateProductDto, Product } from "@/types/product";
 import { productApi } from "@/utils/api";
+import { AxiosError } from "axios";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 
@@ -15,9 +16,17 @@ export const useProducts = () => {
 
       setProducts(data);
       setError(null);
-    } catch (err: any) {
-      setError(err.response?.data?.message || "Failed to fetch products");
-      toast.error("Failed to fetch products");
+    } catch (error: unknown) {
+      let message = "Failed to fetch products";
+
+      if (error instanceof AxiosError && error.response?.data?.message) {
+        message = error.response.data.message;
+      } else if (error instanceof Error) {
+        message = error.message;
+      }
+
+      setError(message);
+      toast.error(message);
     } finally {
       setLoading(false);
     }
@@ -29,8 +38,15 @@ export const useProducts = () => {
       setProducts((prev) => [...prev, newProduct]);
       toast.success("Product added successfully!");
       return newProduct;
-    } catch (err: any) {
-      const message = err.response?.data?.message || "Failed to add product";
+    } catch (error: unknown) {
+      let message = "Failed to add product";
+
+      if (error instanceof AxiosError && error.response?.data?.message) {
+        message = error.response.data.message;
+      } else if (error instanceof Error) {
+        message = error.message;
+      }
+
       toast.error(message);
       throw new Error(message);
     }
@@ -41,8 +57,15 @@ export const useProducts = () => {
       await productApi.deleteProduct(id);
       setProducts((prev) => prev.filter((p) => p.id !== id));
       toast.success("Product deleted successfully!");
-    } catch (err: any) {
-      const message = err.response?.data?.message || "Failed to delete product";
+    } catch (error: unknown) {
+      let message = "Failed to delete product";
+
+      if (error instanceof AxiosError && error.response?.data?.message) {
+        message = error.response.data.message;
+      } else if (error instanceof Error) {
+        message = error.message;
+      }
+
       toast.error(message);
       throw new Error(message);
     }

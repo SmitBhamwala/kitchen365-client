@@ -23,20 +23,6 @@ api.interceptors.request.use((config) => {
   return config;
 });
 
-// Add response interceptor to handle token expiration
-api.interceptors.response.use(
-  (response) => response,
-  (error) => {
-    if (error.response?.status === 401) {
-      // Token expired or invalid
-      Cookies.remove("token");
-      Cookies.remove("user");
-      window.location.href = "/login";
-    }
-    return Promise.reject(error);
-  }
-);
-
 export const authApi = {
   // Login user
   login: async (credentials: LoginDto): Promise<AuthResponse> => {

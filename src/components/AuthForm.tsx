@@ -5,11 +5,14 @@ import { useState } from "react";
 
 interface AuthFormProps {
   type: "login" | "signup";
-  onSubmit: (data: any) => Promise<void>;
+  onSubmit: (data: { email: string; password: string }) => Promise<void>;
 }
 
 export default function AuthForm({ type, onSubmit }: AuthFormProps) {
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<{
+    email: string;
+    password: string;
+  }>({
     email: "",
     password: ""
   });
@@ -35,7 +38,7 @@ export default function AuthForm({ type, onSubmit }: AuthFormProps) {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = async (e?: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     if (!validateForm()) return;

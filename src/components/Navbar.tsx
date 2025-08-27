@@ -43,7 +43,7 @@ export default function Navbar() {
                 </Link>
                 <Link
                   href="/signup"
-                  className="bg-gray-500 hidden lg:visible cursor-pointer text-white px-4 py-2 rounded-md hover:bg-gray-600 transition-colors">
+                  className="bg-gray-500 hidden lg:block cursor-pointer text-white px-4 py-2 rounded-md hover:bg-gray-600 transition-colors">
                   Sign Up
                 </Link>
               </div>
